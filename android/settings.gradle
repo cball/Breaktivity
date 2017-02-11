@@ -1,0 +1,3 @@
+rootProject.name = 'Breaktivity'
+
+include ':app'
