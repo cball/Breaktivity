@@ -7,8 +7,17 @@ export default StyleSheet.create({
   },
   container: {
     flex: 1,
-    // justifyContent: 'center',
+    justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: Colors.background
-  }}
+  },
+  playPauseButtonContainer: {
+    marginTop: 30
+  },
+  playPauseButton: {
+    backgroundColor: Colors.darkBlue
+  },
+  playPauseButtonIcon: {
+    marginRight: 4
+  }
 })
