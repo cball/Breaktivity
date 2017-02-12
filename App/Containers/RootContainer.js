@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { Text, View, StatusBar, StyleSheet } from 'react-native'
 import { Colors } from '../Themes'
+import CountdownTimer from '../Components/CountdownTimer'
 
-// Styles
 // import styles from './Styles/RootContainerStyle'
 const styles = StyleSheet.create({
   applicationView: {
@@ -10,18 +10,18 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    // justifyContent: 'center',
+    justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: Colors.background
   }
 })
 
 class RootContainer extends Component {
-  render () {
+  render() {
     return (
       <View style={styles.container}>
         <StatusBar barStyle='light-content' />
-        <Text>What?</Text>
+        <CountdownTimer seconds={60} />
       </View>
     )
   }

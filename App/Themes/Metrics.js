@@ -1,8 +1,7 @@
-import {Dimensions, Platform} from 'react-native'
+import { Dimensions, Platform } from 'react-native'
 
 const { width, height } = Dimensions.get('window')
 
-// Used via Metrics.baseMargin
 const metrics = {
   marginHorizontal: 10,
   marginVertical: 10,
