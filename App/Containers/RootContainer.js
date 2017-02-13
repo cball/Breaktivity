@@ -44,6 +44,12 @@ class RootContainer extends Component {
     return (
       <View style={styles.container}>
         <StatusBar barStyle='light-content' />
+
+        <Icon
+          name='sound-mix'
+          size={40}
+          style={styles.settingsIcon} />
+
         <CountdownTimer
           seconds={this.state.seconds}
           paused={this.state.paused}

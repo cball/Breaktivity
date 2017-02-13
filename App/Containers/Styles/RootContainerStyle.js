@@ -19,5 +19,10 @@ export default StyleSheet.create({
   },
   playPauseButtonIcon: {
     marginRight: 4
+  },
+  settingsIcon: {
+    position: 'absolute',
+    top: 10,
+    right: 10
   }
 })
