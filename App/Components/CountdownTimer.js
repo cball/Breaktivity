@@ -1,9 +1,9 @@
 import React from 'react'
 import { View, Text } from 'react-native'
 import { AnimatedCircularProgress } from 'react-native-circular-progress'
-
 import styles from './Styles/CountdownTimerStyle'
 import { Colors } from '../Themes'
+import formattedTime from '../Utils/format-time'
 
 export default class CountdownTimer extends React.Component {
   constructor(props) {
@@ -18,6 +18,8 @@ export default class CountdownTimer extends React.Component {
   }
 
   render() {
+    const timeString = formattedTime(this.state.seconds)
+
     return (
       <View style={styles.container}>
         <AnimatedCircularProgress
@@ -35,7 +37,7 @@ export default class CountdownTimer extends React.Component {
             () => (
               <View style={styles.textContainer}>
                 <Text style={styles.textTimeRemaining}>
-                  { this.state.seconds }
+                  { timeString }
                 </Text>
                 <Text style={styles.textSubtitle}>
                   until break

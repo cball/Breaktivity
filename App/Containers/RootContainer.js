@@ -15,7 +15,7 @@ import { Fonts } from '../Themes'
 class RootContainer extends Component {
   // TODO: make this configurable and stored from settings
   state = {
-    seconds: 60,
+    seconds: 2100,
     paused: true
   }
 
