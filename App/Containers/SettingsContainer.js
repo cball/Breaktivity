@@ -8,35 +8,27 @@ import {
 import styles from './Styles/SettingsContainerStyle'
 import Icon from 'react-native-vector-icons/Entypo'
 import formatTime from '../Utils/format-time'
+import { connect } from 'react-redux'
+import { updateSettings } from '../Redux/Modules/Settings/actions'
 
 const MINIMUM_WORK_TIME = 180
 const MAXIMUM_WORK_TIME = 3600
 const MINIMUM_BREAK_TIME = 120
 const MAXIMUM_BREAK_TIME = 1800
 const ONE_MINUTE = 60
-const DEFAULT_WORKTIME_LENGTH = 2100
-const DEFAULT_BREAKTIME_LENGTH = 180
 
 class SettingsContainer extends Component {
   static navigationOptions = {
     title: 'Settings',
   }
 
-  // TODO: make this configurable and stored from settings
-  state = {
-    workTimeLength: DEFAULT_WORKTIME_LENGTH,
-    breakTimeLength: DEFAULT_BREAKTIME_LENGTH,
-    requireMove: true,
-    vibrate: true
-  }
-
   render() {
     const { navigate } = this.props.navigation
-    let formattedBreakTime = `${formatTime(this.state.breakTimeLength)} min`
+    let formattedBreakTime = `${formatTime(this.props.breakTimeLength)} min`
     let formattedWorkTime = '1:00 hour'
 
-    if (this.state.workTimeLength < MAXIMUM_WORK_TIME) {
-      formattedWorkTime = `${formatTime(this.state.workTimeLength)} min`
+    if (this.props.workTimeLength < MAXIMUM_WORK_TIME) {
+      formattedWorkTime = `${formatTime(this.props.workTimeLength)} min`
     }
 
     return (
@@ -56,8 +48,8 @@ class SettingsContainer extends Component {
               minimumValue={MINIMUM_WORK_TIME}
               maximumValue={MAXIMUM_WORK_TIME}
               step={ONE_MINUTE}
-              onValueChange={(v) => this.setState({ workTimeLength: v })}
-              value={this.state.workTimeLength} />
+              onValueChange={(v) => {this.props.updateSetting('workTimeLength', v)}}
+              value={this.props.workTimeLength} />
           </View>
 
           <View style={styles.settingsItem}>
@@ -67,8 +59,8 @@ class SettingsContainer extends Component {
               minimumValue={MINIMUM_BREAK_TIME}
               maximumValue={MAXIMUM_BREAK_TIME}
               step={ONE_MINUTE}
-              onValueChange={(v) => this.setState({ breakTimeLength: v })}
-              value={this.state.breakTimeLength} />
+              onValueChange={(v) => {this.props.updateSetting('breakTimeLength', v)}}
+              value={this.props.breakTimeLength} />
           </View>
         </View>
 
@@ -77,15 +69,15 @@ class SettingsContainer extends Component {
           <View style={[styles.settingsItem, styles.checkMarkSettingsItem]}>
             <Text>Require movement during break</Text>
             <Switch
-              value={this.state.requireMove}
-              onValueChange={(v) => {this.setState({ requireMove: v })}} />
+              value={this.props.requireMove}
+              onValueChange={(v) => {this.props.updateSetting('requireMove', v)}} />
           </View>
 
           <View style={[styles.settingsItem, styles.checkMarkSettingsItem]}>
             <Text>Enable vibration for notifications</Text>
             <Switch
-              value={this.state.vibrate}
-              onValueChange={(v) => {this.setState({ vibrate: v })}} />
+              value={this.props.vibrate}
+              onValueChange={(v) => {this.props.updateSetting('vibrate', v)}} />
           </View>
         </View>
       </View>
@@ -93,4 +85,19 @@ class SettingsContainer extends Component {
   }
 }
 
-export default SettingsContainer
+const mapStateToProps = (state) => {
+  return state.settings
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    updateSetting: (settingName, settingValue) => {
+      let settings = {}
+      settings[settingName] = settingValue
+
+      dispatch(updateSettings(settings))
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SettingsContainer)
