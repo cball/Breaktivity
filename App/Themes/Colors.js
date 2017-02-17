@@ -3,6 +3,7 @@ const colors = {
   transparent: 'rgba(0,0,0,0)',
   electricBlue: '#00e0ff',
   darkBlue: '#3d5875',
+  lightGray: '#eeeeee'
 }
 
 export default colors

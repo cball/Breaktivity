@@ -1,18 +1,20 @@
 import React, { Component } from 'react';
 import RootContainer from './RootContainer';
+import SettingsContainer from './SettingsContainer';
+import { StackNavigator } from 'react-navigation';
 
-/**
- * Provides an entry point into our application.  Both index.ios.js and index.android.js
- * call this component first.
- *
- * redux store would typically go here...
- */
-class App extends Component {
-  render () {
-    return (
-      <RootContainer />
-    )
+const App = StackNavigator(
+  {
+    Home: { screen: RootContainer },
+    Settings: { screen: SettingsContainer }
+  },
+  {
+    navigationOptions: {
+      header: {
+        visible: false
+      }
+    }
   }
-}
+);
 
 export default App

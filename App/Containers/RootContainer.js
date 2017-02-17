@@ -13,6 +13,10 @@ import Icon from 'react-native-vector-icons/Entypo'
 import { Fonts } from '../Themes'
 
 class RootContainer extends Component {
+  static navigationOptions = {
+    title: 'Breaktivity',
+  }
+
   // TODO: make this configurable and stored from settings
   state = {
     seconds: 2100,
@@ -31,7 +35,8 @@ class RootContainer extends Component {
   }
 
   render() {
-    let pauseButtonIcon, pauseButtonText;
+    let pauseButtonIcon, pauseButtonText
+    const { navigate } = this.props.navigation
 
     if (this.state.paused) {
       pauseButtonIcon = 'controller-play'
@@ -48,7 +53,8 @@ class RootContainer extends Component {
         <Icon
           name='sound-mix'
           size={40}
-          style={styles.settingsIcon} />
+          style={styles.settingsIcon}
+          onPress={() => navigate('Settings')} />
 
         <CountdownTimer
           seconds={this.state.seconds}
