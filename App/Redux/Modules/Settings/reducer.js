@@ -13,13 +13,11 @@ const DEFAULT_SETTINGS = {
 export default function reducer(state = DEFAULT_SETTINGS, action) {
   switch (action.type) {
     case UPDATE_SETTINGS:
-      const settings = Object.assign({}, state.settings, action.payload)
-
       return {
         ...state,
-        ...settings
+        ...action.payload
       }
     default:
-      return state;
+      return state
   }
 }

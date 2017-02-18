@@ -1,16 +1,15 @@
 import { combineReducers, createStore } from 'redux'
 import settings from './Modules/Settings/reducer'
+import timer from './Modules/Timer/reducer'
 
-const reducers = combineReducers({ settings })
+const reducers = combineReducers({ settings, timer })
 const store = createStore(reducers)
 
 // testing
-import { updateSettings } from './Modules/Settings/actions'
-
-const unsubscribe = store.subscribe(() =>
-  console.table(store.getState())
-)
-
+// const unsubscribe = store.subscribe(() =>
+//   console.table(store.getState())
+// )
+//
 // unsubscribe()
 // testing
 
