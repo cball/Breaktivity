@@ -11,34 +11,19 @@ import styles from './Styles/RootContainerStyle'
 import CountdownTimer from '../Components/CountdownTimer'
 import Icon from 'react-native-vector-icons/Entypo'
 import { Fonts } from '../Themes'
+import { connect } from 'react-redux'
+import { toggleTimer, updateTimer } from '../Redux/Modules/Timer/actions'
 
 class RootContainer extends Component {
   static navigationOptions = {
     title: 'Breaktivity',
   }
 
-  // TODO: make this configurable and stored from settings
-  state = {
-    seconds: 2100,
-    paused: true
-  }
-
-  /**
-   * Toggles the play/pause state of the timer.
-   * @method
-   * @public
-   */
-  toggleTimer = () => {
-    let paused = !this.state.paused
-
-    this.setState({ paused })
-  }
-
   render() {
     let pauseButtonIcon, pauseButtonText
     const { navigate } = this.props.navigation
 
-    if (this.state.paused) {
+    if (this.props.paused) {
       pauseButtonIcon = 'controller-play'
       pauseButtonText = 'Start Working'
     } else {
@@ -57,8 +42,10 @@ class RootContainer extends Component {
           onPress={() => navigate('Settings')} />
 
         <CountdownTimer
-          seconds={this.state.seconds}
-          paused={this.state.paused}
+          initialSeconds={this.props.workTimeLength}
+          seconds={this.props.seconds}
+          paused={this.props.paused}
+          onTimerUpdate={this.props.onTimerUpdate}
         />
 
         <View style={styles.playPauseButtonContainer}>
@@ -68,7 +55,7 @@ class RootContainer extends Component {
             size={30}
             borderRadius={2}
             iconStyle={styles.playPauseButtonIcon}
-            onPress={this.toggleTimer}>
+            onPress={this.props.toggleTimer}>
 
             {pauseButtonText}
           </Icon.Button>
@@ -78,4 +65,20 @@ class RootContainer extends Component {
   }
 }
 
-export default RootContainer
+const mapStateToProps = (state) => {
+  return Object.assign({}, state.timer, state.settings)
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    toggleTimer: () => {
+      dispatch(toggleTimer())
+    },
+
+    onTimerUpdate: (timerInfo) => {
+      dispatch(updateTimer(timerInfo))
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(RootContainer)
