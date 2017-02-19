@@ -7,13 +7,16 @@ export default StyleSheet.create({
   progress: {
     position: 'relative'
   },
-  textContainer: {
+  textContainerWithProgress: {
     position: 'absolute',
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
     height: 300,
     width: 300
+  },
+  textContainer: {
+    alignItems: 'center'
   },
   textTimeRemaining: {
     ...Fonts.style.h1,

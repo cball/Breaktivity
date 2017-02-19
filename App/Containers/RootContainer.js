@@ -12,7 +12,11 @@ import CountdownTimer from '../Components/CountdownTimer'
 import Icon from 'react-native-vector-icons/Entypo'
 import { Fonts } from '../Themes'
 import { connect } from 'react-redux'
-import { toggleTimer, updateTimer } from '../Redux/Modules/Timer/actions'
+import {
+  toggleTimer,
+  updateTimer,
+  completeTimer
+} from '../Redux/Modules/Timer/actions'
 
 class RootContainer extends Component {
   static navigationOptions = {
@@ -46,6 +50,7 @@ class RootContainer extends Component {
           seconds={this.props.seconds}
           paused={this.props.paused}
           onTimerUpdate={this.props.onTimerUpdate}
+          onTimerComplete={() => navigate('Breaktime')}
         />
 
         <View style={styles.playPauseButtonContainer}>
@@ -76,6 +81,8 @@ const mapDispatchToProps = (dispatch) => {
     },
 
     onTimerUpdate: (timerInfo) => {
+      const { seconds } = timerInfo
+
       dispatch(updateTimer(timerInfo))
     }
   }

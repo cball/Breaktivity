@@ -4,8 +4,7 @@ import {
 } from './actions'
 
 const DEFAULT_TIMER_STATE = {
-  seconds: 2100,
-  percent: 100,
+  seconds: 5,
   paused: true
 }
 

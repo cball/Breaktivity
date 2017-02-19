@@ -9,11 +9,24 @@ const timer = require('react-native-timer');
 
 export default class CountdownTimer extends React.Component {
   render() {
+    let timerComponentToRender;
     const timeString = formattedTime(this.props.seconds)
-    let progress = this.props.seconds / this.props.initialSeconds * 100
+    const progress = this.props.seconds / this.props.initialSeconds * 100
 
-    return (
-      <View style={styles.container}>
+    // TODO: change this to separated Components
+    // rather than conditionalizing
+    const timerText =
+      <View style={this.props.showProgress ? styles.textContainerWithProgress : styles.textContainer}>
+        <Text style={styles.textTimeRemaining}>
+          { timeString }
+        </Text>
+        <Text style={styles.textSubtitle}>
+          until break
+        </Text>
+      </View>
+
+    if (this.props.showProgress) {
+      timerComponentToRender =
         <AnimatedCircularProgress
           size={300}
           width={7}
@@ -27,17 +40,17 @@ export default class CountdownTimer extends React.Component {
           style={styles.progress}>
           {
             () => (
-              <View style={styles.textContainer}>
-                <Text style={styles.textTimeRemaining}>
-                  { timeString }
-                </Text>
-                <Text style={styles.textSubtitle}>
-                  until break
-                </Text>
-              </View>
+              timerText
             )
           }
         </AnimatedCircularProgress>
+    } else {
+      timerComponentToRender = timerText;
+    }
+
+    return (
+      <View style={styles.container}>
+        {timerComponentToRender}
       </View>
     )
   }
@@ -92,18 +105,15 @@ export default class CountdownTimer extends React.Component {
   _tick() {
     let tickTime = Date.now()
     let timeRemaining = this.props.seconds - 1
-    let progress = timeRemaining / this.props.initialSeconds * 100
     let seconds = Math.floor(timeRemaining)
 
     if (seconds <= 0) {
-      alert('Done!')
-
       seconds = 0
-      progress = 0
       this._cancelTimer()
+      this.props.onTimerComplete();
     }
 
-    this.props.onTimerUpdate({ seconds, progress })
+    this.props.onTimerUpdate({ seconds })
   }
 }
 
@@ -114,5 +124,5 @@ CountdownTimer.propTypes = {
 CountdownTimer.defaultProps = {
   seconds: 60,
   paused: false,
-  progress: 100
+  showProgress: true
 }
