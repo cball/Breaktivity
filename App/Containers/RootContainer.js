@@ -49,6 +49,7 @@ class RootContainer extends Component {
           initialSeconds={this.props.workTimeLength}
           seconds={this.props.seconds}
           paused={this.props.paused}
+          subtitle='until break'
           onTimerUpdate={this.props.onTimerUpdate}
           onTimerComplete={() => navigate('Breaktime')}
         />

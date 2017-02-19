@@ -32,15 +32,16 @@ class BreaktimeContainer extends Component {
             initialSeconds={300}
             seconds={300}
             paused={this.props.paused}
+            subtitle='until work'
             onTimerUpdate={() => {}}
             onTimerComplete={() => {}}
           />
         </View>
 
-        <View style={{flexDirection: 'row'}}>
+        {/* <View style={{flexDirection: 'row'}}>
           <Text onPress={() => this.setState({ moveProgress: 33 })}>Set to 33</Text>
           <Text onPress={() => this.setState({ moveProgress: 100 })}>Set to 100</Text>
-        </View>
+        </View> */}
 
         <View style={styles.progressWrapper}>
           <ProgressBar progress={this.state.moveProgress} width={300} />

@@ -21,7 +21,7 @@ export default class CountdownTimer extends React.Component {
           { timeString }
         </Text>
         <Text style={styles.textSubtitle}>
-          until break
+          {this.props.subtitle}
         </Text>
       </View>
 
@@ -124,5 +124,6 @@ CountdownTimer.propTypes = {
 CountdownTimer.defaultProps = {
   seconds: 60,
   paused: false,
-  showProgress: true
+  showProgress: true,
+  subtitle: 'remaining'
 }
