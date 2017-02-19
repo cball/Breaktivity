@@ -6,7 +6,7 @@ export default function(seconds) {
     minutes = "0" + minutes;
   }
 
-  if (seconds < 10 && minutes >= 1) {
+  if (seconds < 10) {
     seconds = "0" + seconds;
   }
 
