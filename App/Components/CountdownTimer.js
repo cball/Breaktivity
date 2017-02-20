@@ -55,7 +55,34 @@ export default class CountdownTimer extends React.Component {
     )
   }
 
+  componentDidMount() {
+    this._setupTimer()
+  }
+
+  componentWillUnmount() {
+    this._cancelTimer()
+  }
+
   componentWillReceiveProps(nextProps) {
+    this._startOverIfInitialTimeChanged(nextProps)
+    this._cancelOrStartIfPauseStateChanged(nextProps)
+  }
+
+  /**
+   * If initialSeconds has changed, update the
+   * value of seconds so it starts with the new value
+   */
+  _startOverIfInitialTimeChanged(nextProps) {
+    if (nextProps.initialSeconds != this.props.initialSeconds) {
+      const seconds = nextProps.initialSeconds
+      this.props.onTimerUpdate({ seconds })
+    }
+  }
+
+  /**
+   * Cancels or starts the timer only if paused has changed state
+   */
+  _cancelOrStartIfPauseStateChanged(nextProps) {
     if (this.props.paused === nextProps.paused) {
       return;
     }
@@ -69,14 +96,9 @@ export default class CountdownTimer extends React.Component {
     }
   }
 
-  componentDidMount() {
-    this._setupTimer()
-  }
-
-  componentWillUnmount() {
-    this._cancelTimer()
-  }
-
+  /**
+   * Sets up a timer if the initial state is not paused
+   */
   _setupTimer() {
     if (this.props.paused) {
       return;
@@ -85,6 +107,9 @@ export default class CountdownTimer extends React.Component {
     this._startTimer()
   }
 
+  /**
+   * Starts a timer unless one is already running
+   */
   _startTimer() {
     const timerRunning = timer.intervalExists('countdownTimer')
 
@@ -97,11 +122,17 @@ export default class CountdownTimer extends React.Component {
     this._tick()
   }
 
+  /**
+   * Cancels a runing timer
+   */
   _cancelTimer() {
     timer.clearInterval('countdownTimer')
     this._timerInterval = null
   }
 
+  /**
+   * Timer tick. subtracts seconds, sending a complete event if we hit 0
+   */
   _tick() {
     let tickTime = Date.now()
     let timeRemaining = this.props.seconds - 1
