@@ -3041,6 +3041,10 @@ react-native-circular-progress:
   dependencies:
     art "^0.10.0"
 
+react-native-device-info:
+  version "0.9.9"
+  resolved "https://registry.yarnpkg.com/react-native-device-info/-/react-native-device-info-0.9.9.tgz#42490719b8be2b8ffe689f3c74d56884ca05c0d7"
+
 react-native-dismiss-keyboard@1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/react-native-dismiss-keyboard/-/react-native-dismiss-keyboard-1.0.0.tgz#32886242b3f2317e121f3aeb9b0a585e2b879b49"
@@ -3051,6 +3055,10 @@ react-native-drawer-layout@^1.1.0:
   dependencies:
     autobind-decorator "^1.3.2"
     react-native-dismiss-keyboard "1.0.0"
+
+react-native-sensor-manager:
+  version "0.1.10"
+  resolved "https://registry.yarnpkg.com/react-native-sensor-manager/-/react-native-sensor-manager-0.1.10.tgz#c228280d67fddb668e715b4d7b823188de504da8"
 
 react-native-tab-view@^0.0.55:
   version "0.0.55"
