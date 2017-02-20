@@ -23,7 +23,7 @@ class SettingsContainer extends Component {
   }
 
   render() {
-    const { navigate } = this.props.navigation
+    const { goBack } = this.props.navigation
     let formattedBreakTime = `${formatTime(this.props.breakTimeLength)} min`
     let formattedWorkTime = '1:00 hour'
 
@@ -37,7 +37,7 @@ class SettingsContainer extends Component {
           name='cross'
           size={40}
           style={styles.closeButton}
-          onPress={() => navigate('Home')} />
+          onPress={() => goBack()} />
 
         <View style={[styles.settingsGroup, styles.firstSettingsGroup]}>
           <Text style={styles.settingsGroupTitle}>WORK / BREAK LENGTH</Text>
