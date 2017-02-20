@@ -11,6 +11,7 @@ import { connect } from 'react-redux'
 import CountdownTimer from '../Components/CountdownTimer'
 import ProgressBar from '../Components/ProgressBar'
 import MovementTracker from '../Components/MovementTracker'
+import { resetTimer } from '../Redux/Modules/Timer/actions'
 
 const DeviceInfo = require('react-native-device-info')
 
@@ -86,10 +87,11 @@ class BreaktimeContainer extends Component {
     })
   }
 
-  _startNewWorkCycle() {
+  _startNewWorkCycle({ paused = false }) {
     const { navigate } = this.props.navigation
+    const { workTimeLength } = this.props
 
-    // TODO dispatch action to reset timer
+    this.props.resetTimer({ seconds: workTimeLength, paused })
     navigate('Home')
   }
 
@@ -131,7 +133,8 @@ class BreaktimeContainer extends Component {
         <Image source={Images.worktimeIcon} style={styles.icon} />
 
         <View style={styles.progressWrapper}>
-          <Button title='Start working' onPress={this._startNewWorkCycle.bind(this)} />
+          <Button title='Back to Work' onPress={this._startNewWorkCycle.bind(this)} />
+          <Button title='Finish Working' onPress={this._startNewWorkCycle.bind(this, { paused: true })} />
         </View>
       </View>
     )
@@ -153,4 +156,12 @@ const mapStateToProps = (state) => {
   return state.settings
 }
 
-export default connect(mapStateToProps)(BreaktimeContainer)
+const mapDispatchToProps = (dispatch) => {
+  return {
+    resetTimer: (timerInfo) => {
+      dispatch(resetTimer(timerInfo))
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(BreaktimeContainer)

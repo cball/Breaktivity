@@ -14,8 +14,7 @@ import { Fonts } from '../Themes'
 import { connect } from 'react-redux'
 import {
   toggleTimer,
-  updateTimer,
-  completeTimer
+  updateTimer
 } from '../Redux/Modules/Timer/actions'
 
 class RootContainer extends Component {
@@ -82,8 +81,6 @@ const mapDispatchToProps = (dispatch) => {
     },
 
     onTimerUpdate: (timerInfo) => {
-      const { seconds } = timerInfo
-
       dispatch(updateTimer(timerInfo))
     }
   }

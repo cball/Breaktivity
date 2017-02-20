@@ -1,10 +1,11 @@
 import {
   TIMER_TOGGLE,
-  TIMER_UPDATE
+  TIMER_UPDATE,
+  TIMER_RESET
 } from './actions'
 
 const DEFAULT_TIMER_STATE = {
-  seconds: 5,
+  seconds: 10,
   paused: true
 }
 
@@ -21,6 +22,11 @@ export default function reducer(state = DEFAULT_TIMER_STATE, action) {
       return {
         ...state,
         ...pauseState
+      }
+    case TIMER_RESET:
+      return {
+        ...state,
+        ...action.payload
       }
     default:
       return state
