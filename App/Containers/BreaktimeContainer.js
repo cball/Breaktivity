@@ -12,6 +12,7 @@ import CountdownTimer from '../Components/CountdownTimer'
 import ProgressBar from '../Components/ProgressBar'
 import MovementTracker from '../Components/MovementTracker'
 import { resetTimer } from '../Redux/Modules/Timer/actions'
+import Icon from 'react-native-vector-icons/Entypo'
 
 const DeviceInfo = require('react-native-device-info')
 
@@ -132,9 +133,28 @@ class BreaktimeContainer extends Component {
         <Text style={styles.headerText}>Worktime!</Text>
         <Image source={Images.worktimeIcon} style={styles.icon} />
 
-        <View style={styles.progressWrapper}>
-          <Button title='Back to Work' onPress={this._startNewWorkCycle.bind(this)} />
-          <Button title='Finish Working' onPress={this._startNewWorkCycle.bind(this, { paused: true })} />
+        <View style={styles.backToWorkButtons}>
+          <Icon.Button
+            name='ccw'
+            style={styles.backToWorkButton}
+            size={30}
+            borderRadius={2}
+            onPress={this._startNewWorkCycle.bind(this)}>
+
+            Back to Work
+
+          </Icon.Button>
+
+          <Icon.Button
+            name='drink'
+            style={styles.backToWorkButton}
+            size={30}
+            borderRadius={2}
+            onPress={this._startNewWorkCycle.bind(this, { paused: true })}>
+
+            Done for now
+
+          </Icon.Button>
         </View>
       </View>
     )

@@ -25,5 +25,14 @@ export default StyleSheet.create({
     marginTop: 40,
     marginLeft: 20,
     marginRight: 20
+  },
+  backToWorkButtons: {
+    marginTop: 20,
+    width: 300,
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  backToWorkButton: {
+    backgroundColor: Colors.darkBlue
   }
 })
