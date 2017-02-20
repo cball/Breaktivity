@@ -10,7 +10,7 @@ export default StyleSheet.create({
     height: 20
   },
   progressBar: {
-    backgroundColor: 'blue',
+    backgroundColor: Colors.electricBlue,
   },
   progressBarRemaining: {
     backgroundColor: '#eee'
