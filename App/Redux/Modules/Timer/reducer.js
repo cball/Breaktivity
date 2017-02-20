@@ -4,8 +4,10 @@ import {
   TIMER_RESET
 } from './actions'
 
+import { DEFAULT_SETTINGS } from '../Settings/reducer'
+
 const DEFAULT_TIMER_STATE = {
-  seconds: 10,
+  seconds: DEFAULT_SETTINGS.workTimeLength,
   paused: true
 }
 
