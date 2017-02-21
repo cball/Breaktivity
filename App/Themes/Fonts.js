@@ -2,7 +2,7 @@ const type = {
   base: 'HelveticaNeue',
   bold: 'HelveticaNeue-Bold',
   emphasis: 'HelveticaNeue-Italic'
-}
+};
 
 const size = {
   h1: 38,
@@ -17,7 +17,7 @@ const size = {
   small: 12,
   tiny: 8.5,
   huge: 56
-}
+};
 
 const style = {
   h1: {
@@ -52,10 +52,10 @@ const style = {
     fontFamily: type.base,
     fontSize: size.medium
   }
-}
+};
 
 export default {
   type,
   size,
   style
-}
+};

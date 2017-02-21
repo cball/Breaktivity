@@ -1,7 +1,5 @@
-import React from 'react'
+import React from 'react';
 
-class MovementTracker extends React.Component {
+class MovementTracker extends React.Component {}
 
-}
-
-export default MovementTracker
+export default MovementTracker;

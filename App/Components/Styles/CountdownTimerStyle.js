@@ -1,9 +1,8 @@
-import { StyleSheet } from 'react-native'
-import { Colors, Fonts } from '../../Themes'
+import { StyleSheet } from 'react-native';
+import { Colors, Fonts } from '../../Themes';
 
 export default StyleSheet.create({
-  container: {
-  },
+  container: {},
   progress: {
     position: 'relative'
   },
@@ -23,6 +22,5 @@ export default StyleSheet.create({
     fontSize: Fonts.size.huge,
     lineHeight: Fonts.size.huge
   },
-  textSubtitle: {
-  }
-})
+  textSubtitle: {}
+});

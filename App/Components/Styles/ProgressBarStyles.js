@@ -1,5 +1,5 @@
-import { StyleSheet } from 'react-native'
-import { Colors, Fonts } from '../../Themes'
+import { StyleSheet } from 'react-native';
+import { Colors, Fonts } from '../../Themes';
 
 export default StyleSheet.create({
   container: {
@@ -10,9 +10,9 @@ export default StyleSheet.create({
     height: 20
   },
   progressBar: {
-    backgroundColor: Colors.electricBlue,
+    backgroundColor: Colors.electricBlue
   },
   progressBarRemaining: {
     backgroundColor: '#eee'
   }
-})
+});

@@ -1,89 +1,83 @@
-import React, { Component } from 'react'
-import {
-  Text,
-  View,
-  StatusBar,
-  StyleSheet,
-  Alert,
-  Button
-} from 'react-native'
-import styles from './Styles/RootContainerStyle'
-import CountdownTimer from '../Components/CountdownTimer'
-import Icon from 'react-native-vector-icons/Entypo'
-import { Fonts } from '../Themes'
-import { connect } from 'react-redux'
-import {
-  toggleTimer,
-  updateTimer
-} from '../Redux/Modules/Timer/actions'
+import React, { Component } from 'react';
+import { View, StatusBar } from 'react-native';
+import styles from './Styles/RootContainerStyle';
+import CountdownTimer from '../Components/CountdownTimer';
+import Icon from 'react-native-vector-icons/Entypo';
+import { connect } from 'react-redux';
+import { toggleTimer, updateTimer } from '../Redux/Modules/Timer/actions';
+import LoadingScreen from '../Components/LoadingScreen';
 
 class RootContainer extends Component {
   static navigationOptions = {
-    title: 'Breaktivity',
-  }
-
+    title: 'Breaktivity'
+  };
   render() {
-    let pauseButtonIcon, pauseButtonText
-    const { navigate } = this.props.navigation
+    let pauseButtonIcon, pauseButtonText;
+    const { navigate } = this.props.navigation;
 
     if (this.props.paused) {
-      pauseButtonIcon = 'controller-play'
-      pauseButtonText = 'Start Working'
+      pauseButtonIcon = 'controller-play';
+      pauseButtonText = 'Start Working';
     } else {
-      pauseButtonIcon = 'controller-paus'
-      pauseButtonText = 'Pause Working'
+      pauseButtonIcon = 'controller-paus';
+      pauseButtonText = 'Pause Working';
     }
 
-    return (
-      <View style={styles.container}>
-        <StatusBar barStyle='light-content' />
+    if (this.props.isLoading) {
+      return <LoadingScreen />;
+    } else {
+      return (
+        <View style={styles.container}>
+          <StatusBar barStyle="light-content" />
 
-        <Icon
-          name='sound-mix'
-          size={40}
-          style={styles.settingsIcon}
-          onPress={() => navigate('Settings')} />
+          <Icon
+            name="sound-mix"
+            size={40}
+            style={styles.settingsIcon}
+            onPress={() => navigate('Settings')}
+          />
 
-        <CountdownTimer
-          initialSeconds={this.props.workTimeLength}
-          seconds={this.props.seconds}
-          paused={this.props.paused}
-          subtitle='until break'
-          onTimerUpdate={this.props.onTimerUpdate}
-          onTimerComplete={() => navigate('Breaktime')}
-        />
+          <CountdownTimer
+            initialSeconds={this.props.workTimeLength}
+            seconds={this.props.seconds}
+            paused={this.props.paused}
+            subtitle="until break"
+            onTimerUpdate={this.props.onTimerUpdate}
+            onTimerComplete={() => navigate('Breaktime')}
+          />
 
-        <View style={styles.playPauseButtonContainer}>
-          <Icon.Button
-            name={pauseButtonIcon}
-            style={styles.playPauseButton}
-            size={30}
-            borderRadius={2}
-            iconStyle={styles.playPauseButtonIcon}
-            onPress={this.props.toggleTimer}>
+          <View style={styles.playPauseButtonContainer}>
+            <Icon.Button
+              name={pauseButtonIcon}
+              style={styles.playPauseButton}
+              size={30}
+              borderRadius={2}
+              iconStyle={styles.playPauseButtonIcon}
+              onPress={this.props.toggleTimer}>
 
-            {pauseButtonText}
-          </Icon.Button>
+              {pauseButtonText}
+            </Icon.Button>
+          </View>
         </View>
-      </View>
-    )
+      );
+    }
   }
 }
 
-const mapStateToProps = (state) => {
-  return Object.assign({}, state.timer, state.settings)
-}
+const mapStateToProps = state => {
+  return Object.assign({}, state.timer, state.settings, state.startup);
+};
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
     toggleTimer: () => {
-      dispatch(toggleTimer())
+      dispatch(toggleTimer());
     },
 
-    onTimerUpdate: (timerInfo) => {
-      dispatch(updateTimer(timerInfo))
+    onTimerUpdate: timerInfo => {
+      dispatch(updateTimer(timerInfo));
     }
-  }
-}
+  };
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(RootContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(RootContainer);

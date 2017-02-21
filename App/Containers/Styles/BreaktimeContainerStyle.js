@@ -1,5 +1,5 @@
-import { StyleSheet } from 'react-native'
-import { Fonts, Metrics, Colors } from '../../Themes'
+import { StyleSheet } from 'react-native';
+import { Fonts, Metrics, Colors } from '../../Themes';
 
 export default StyleSheet.create({
   container: {
@@ -35,4 +35,4 @@ export default StyleSheet.create({
   backToWorkButton: {
     backgroundColor: Colors.darkBlue
   }
-})
+});

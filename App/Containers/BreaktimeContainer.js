@@ -1,20 +1,15 @@
-import React, { Component } from 'react'
-import {
-  View,
-  Text,
-  Image,
-  Button
-} from 'react-native'
-import styles from './Styles/BreaktimeContainerStyle'
-import { Images } from '../Themes'
-import { connect } from 'react-redux'
-import CountdownTimer from '../Components/CountdownTimer'
-import ProgressBar from '../Components/ProgressBar'
-import MovementTracker from '../Components/MovementTracker'
-import { resetTimer } from '../Redux/Modules/Timer/actions'
-import Icon from 'react-native-vector-icons/Entypo'
+import React, { Component } from 'react';
+import { View, Text, Image, Button } from 'react-native';
+import styles from './Styles/BreaktimeContainerStyle';
+import { Images } from '../Themes';
+import { connect } from 'react-redux';
+import CountdownTimer from '../Components/CountdownTimer';
+import ProgressBar from '../Components/ProgressBar';
+import MovementTracker from '../Components/MovementTracker';
+import { resetTimer } from '../Redux/Modules/Timer/actions';
+import Icon from 'react-native-vector-icons/Entypo';
 
-const DeviceInfo = require('react-native-device-info')
+const DeviceInfo = require('react-native-device-info');
 
 class BreaktimeContainer extends Component {
   constructor(props) {
@@ -25,19 +20,22 @@ class BreaktimeContainer extends Component {
       trackMovement: !DeviceInfo.isEmulator(),
       seconds: this.props.breakTimeLength,
       isBreaktimeOver: false
-    }
+    };
   }
 
   componentDidMount() {
     if (DeviceInfo.isEmulator()) {
-      this._fakeMovementProgress()
+      this._fakeMovementProgress();
     }
   }
 
   _fakeMovementProgress() {
-    setTimeout(() => {
-      this.setState({ moveProgress: 100 })
-    }, 2000)
+    setTimeout(
+      () => {
+        this.setState({ moveProgress: 100 });
+      },
+      2000
+    );
   }
 
   // TODO: make this actually accurate, something like
@@ -45,38 +43,38 @@ class BreaktimeContainer extends Component {
   // perhaps?
   // also move to util class
   _movementToPercent(moveData) {
-    const initialMoveData = this.state.initialMoveData || moveData
-    const {x,y,z} = moveData
-    const deltaX = Math.abs(initialMoveData.x - x)
-    const deltaY = Math.abs(initialMoveData.y - y)
-    const deltaZ = Math.abs(initialMoveData.z - z)
-    let completedActivities = this.state.completedActivities || []
-    let moveProgress = this.state.moveProgress
-    let trackMovement = this.state.trackMovement
+    const initialMoveData = this.state.initialMoveData || moveData;
+    const { x, y, z } = moveData;
+    const deltaX = Math.abs(initialMoveData.x - x);
+    const deltaY = Math.abs(initialMoveData.y - y);
+    const deltaZ = Math.abs(initialMoveData.z - z);
+    let completedActivities = this.state.completedActivities || [];
+    let moveProgress = this.state.moveProgress;
+    let trackMovement = this.state.trackMovement;
 
     if (deltaY > 20 && !completedActivities.includes('y')) {
-      completedActivities.push('y')
-      moveProgress = moveProgress + 33.33
+      completedActivities.push('y');
+      moveProgress = moveProgress + 33.33;
     }
 
     if (deltaX > 20 && !completedActivities.includes('x')) {
-      completedActivities.push('x')
-      moveProgress = moveProgress + 33.33
+      completedActivities.push('x');
+      moveProgress = moveProgress + 33.33;
     }
 
     if (deltaZ > 20 && !completedActivities.includes('z')) {
-      completedActivities.push('z')
-      moveProgress = moveProgress + 33.33
+      completedActivities.push('z');
+      moveProgress = moveProgress + 33.33;
     }
 
     const moveDataText = `
       x: ${x}
       y: ${y}
       z: ${z}
-    `
+    `;
 
     if (completedActivities.length === 3) {
-      trackMovement = false
+      trackMovement = false;
     }
 
     this.setState({
@@ -85,15 +83,15 @@ class BreaktimeContainer extends Component {
       moveProgress,
       completedActivities,
       trackMovement
-    })
+    });
   }
 
   _startNewWorkCycle({ paused = false }) {
-    const { navigate } = this.props.navigation
-    const { workTimeLength } = this.props
+    const { navigate } = this.props.navigation;
+    const { workTimeLength } = this.props;
 
-    this.props.resetTimer({ seconds: workTimeLength, paused })
-    navigate('Home')
+    this.props.resetTimer({ seconds: workTimeLength, paused });
+    navigate('Home');
   }
 
   _breakTimeComponents() {
@@ -109,7 +107,7 @@ class BreaktimeContainer extends Component {
             initialSeconds={this.props.breakTimeLength}
             seconds={this.state.seconds}
             paused={this.state.trackMovement}
-            subtitle='until work'
+            subtitle="until work"
             onTimerUpdate={({ seconds }) => this.setState({ seconds })}
             onTimerComplete={() => this.setState({ isBreaktimeOver: true })}
           />
@@ -122,9 +120,10 @@ class BreaktimeContainer extends Component {
         <Text>{this.state.moveDataText}</Text>
         <MovementTracker
           trackMovement={this.state.trackMovement}
-          onMove={(moveData) => this._movementToPercent(moveData)} />
+          onMove={moveData => this._movementToPercent(moveData)}
+        />
       </View>
-    )
+    );
   }
 
   _worktimeComponents() {
@@ -135,7 +134,7 @@ class BreaktimeContainer extends Component {
 
         <View style={styles.backToWorkButtons}>
           <Icon.Button
-            name='ccw'
+            name="ccw"
             style={styles.backToWorkButton}
             size={30}
             borderRadius={2}
@@ -146,7 +145,7 @@ class BreaktimeContainer extends Component {
           </Icon.Button>
 
           <Icon.Button
-            name='drink'
+            name="drink"
             style={styles.backToWorkButton}
             size={30}
             borderRadius={2}
@@ -157,31 +156,31 @@ class BreaktimeContainer extends Component {
           </Icon.Button>
         </View>
       </View>
-    )
+    );
   }
 
   render() {
-    const { isBreaktimeOver } = this.state
+    const { isBreaktimeOver } = this.state;
 
     // TODO: separate components
     if (isBreaktimeOver) {
-      return this._worktimeComponents()
+      return this._worktimeComponents();
     }
 
-    return this._breakTimeComponents()
+    return this._breakTimeComponents();
   }
 }
 
-const mapStateToProps = (state) => {
-  return state.settings
-}
+const mapStateToProps = state => {
+  return state.settings;
+};
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
-    resetTimer: (timerInfo) => {
-      dispatch(resetTimer(timerInfo))
+    resetTimer: timerInfo => {
+      dispatch(resetTimer(timerInfo));
     }
-  }
-}
+  };
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(BreaktimeContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(BreaktimeContainer);

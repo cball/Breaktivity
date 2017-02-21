@@ -1,15 +1,11 @@
-import {
-  TIMER_TOGGLE,
-  TIMER_UPDATE,
-  TIMER_RESET
-} from './actions'
+import { TIMER_TOGGLE, TIMER_UPDATE, TIMER_RESET } from './actions';
 
-import { DEFAULT_SETTINGS } from '../Settings/reducer'
+import { DEFAULT_SETTINGS } from '../Settings/reducer';
 
 const DEFAULT_TIMER_STATE = {
   seconds: DEFAULT_SETTINGS.workTimeLength,
   paused: true
-}
+};
 
 export default function reducer(state = DEFAULT_TIMER_STATE, action) {
   switch (action.type) {
@@ -17,20 +13,20 @@ export default function reducer(state = DEFAULT_TIMER_STATE, action) {
       return {
         ...state,
         ...action.payload
-      }
+      };
     case TIMER_TOGGLE:
-      let pauseState = { paused: !state.paused }
+      let pauseState = { paused: !state.paused };
 
       return {
         ...state,
         ...pauseState
-      }
+      };
     case TIMER_RESET:
       return {
         ...state,
         ...action.payload
-      }
+      };
     default:
-      return state
+      return state;
   }
 }

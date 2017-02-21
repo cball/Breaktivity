@@ -1,7 +1,7 @@
-import { StyleSheet } from 'react-native'
-import { Fonts, Metrics, Colors } from '../../Themes/'
+import { StyleSheet } from 'react-native';
+import { Fonts, Metrics, Colors } from '../../Themes/';
 
-const SETTINGS_PADDING = 30
+const SETTINGS_PADDING = 30;
 
 export default StyleSheet.create({
   container: {
@@ -35,7 +35,7 @@ export default StyleSheet.create({
   settingsItem: {
     marginBottom: 20,
     marginLeft: 20,
-    marginRight: 20,
+    marginRight: 20
   },
   checkMarkSettingsItem: {
     flexDirection: 'row',
@@ -46,6 +46,6 @@ export default StyleSheet.create({
     fontSize: Fonts.size.h6,
     textAlign: 'left',
     marginBottom: 10,
-    marginTop: 10,
+    marginTop: 10
   }
-})
+});

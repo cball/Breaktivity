@@ -1,11 +1,6 @@
-import React from 'react'
-import {
-  Animated,
-  Easing,
-  View,
-  Text
-} from 'react-native'
-import styles from './Styles/ProgressBarStyles'
+import React from 'react';
+import { Animated, Easing, View, Text } from 'react-native';
+import styles from './Styles/ProgressBarStyles';
 
 export default class ProgressBar extends React.Component {
   constructor(props) {
@@ -26,19 +21,23 @@ export default class ProgressBar extends React.Component {
   }
 
   update(progress) {
-    const incomplete = 100 - progress
+    const incomplete = 100 - progress;
 
-    Animated.timing(this.state.progress, {
-      easing: Easing.inOut(Easing.ease),
-      duration: 500,
-      toValue: progress
-    }).start()
+    Animated
+      .timing(this.state.progress, {
+        easing: Easing.inOut(Easing.ease),
+        duration: 500,
+        toValue: progress
+      })
+      .start();
 
-    Animated.timing(this.state.incomplete, {
-      easing: Easing.inOut(Easing.ease),
-      duration: 500,
-      toValue: incomplete
-    }).start()
+    Animated
+      .timing(this.state.incomplete, {
+        easing: Easing.inOut(Easing.ease),
+        duration: 500,
+        toValue: incomplete
+      })
+      .start();
   }
 
   render() {
@@ -54,9 +53,20 @@ export default class ProgressBar extends React.Component {
 
     return (
       <View style={[styles.container, this.props.backgroundStyle]}>
-        <Animated.View style={[styles.progressBar, this.props.progressStyle, { flex: interpolatedProgress }]} />
-        <Animated.View style={[styles.progressBarRemaining, { flex: interpolatedIncomplete }]}/>
+        <Animated.View
+          style={[
+            styles.progressBar,
+            this.props.progressStyle,
+            { flex: interpolatedProgress }
+          ]}
+        />
+        <Animated.View
+          style={[
+            styles.progressBarRemaining,
+            { flex: interpolatedIncomplete }
+          ]}
+        />
       </View>
-    )
+    );
   }
 }

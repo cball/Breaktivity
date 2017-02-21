@@ -3,8 +3,8 @@ import RootContainer from './RootContainer';
 import SettingsContainer from './SettingsContainer';
 import BreaktimeContainer from './BreaktimeContainer';
 import { StackNavigator } from 'react-navigation';
-import { Provider } from 'react-redux'
-import store from '../Redux'
+import { Provider } from 'react-redux';
+import store from '../Redux';
 
 const AppNavigator = StackNavigator(
   {
@@ -31,4 +31,4 @@ class App extends React.Component {
   }
 }
 
-export default App
+export default App;
