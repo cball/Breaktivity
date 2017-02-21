@@ -11,6 +11,15 @@ class RootContainer extends Component {
   static navigationOptions = {
     title: 'Breaktivity'
   };
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      showLoadingComponent: true
+    };
+  }
+
   render() {
     let pauseButtonIcon, pauseButtonText;
     const { navigate } = this.props.navigation;
@@ -23,44 +32,47 @@ class RootContainer extends Component {
       pauseButtonText = 'Pause Working';
     }
 
-    if (this.props.isLoading) {
-      return <LoadingScreen />;
-    } else {
-      return (
-        <View style={styles.container}>
-          <StatusBar barStyle="light-content" />
+    return (
+      <View style={styles.container}>
+        <StatusBar barStyle="light-content" />
 
-          <Icon
-            name="sound-mix"
-            size={40}
-            style={styles.settingsIcon}
-            onPress={() => navigate('Settings')}
-          />
+        <Icon
+          name="sound-mix"
+          size={40}
+          style={styles.settingsIcon}
+          onPress={() => navigate('Settings')}
+        />
 
-          <CountdownTimer
-            initialSeconds={this.props.workTimeLength}
-            seconds={this.props.seconds}
-            paused={this.props.paused}
-            subtitle="until break"
-            onTimerUpdate={this.props.onTimerUpdate}
-            onTimerComplete={() => navigate('Breaktime')}
-          />
+        <CountdownTimer
+          initialSeconds={this.props.workTimeLength}
+          seconds={this.props.seconds}
+          paused={this.props.paused}
+          subtitle="until break"
+          onTimerUpdate={this.props.onTimerUpdate}
+          onTimerComplete={() => navigate('Breaktime')}
+        />
 
-          <View style={styles.playPauseButtonContainer}>
-            <Icon.Button
-              name={pauseButtonIcon}
-              style={styles.playPauseButton}
-              size={30}
-              borderRadius={2}
-              iconStyle={styles.playPauseButtonIcon}
-              onPress={this.props.toggleTimer}>
+        <View style={styles.playPauseButtonContainer}>
+          <Icon.Button
+            name={pauseButtonIcon}
+            style={styles.playPauseButton}
+            size={30}
+            borderRadius={2}
+            iconStyle={styles.playPauseButtonIcon}
+            onPress={this.props.toggleTimer}>
 
-              {pauseButtonText}
-            </Icon.Button>
-          </View>
+            {pauseButtonText}
+          </Icon.Button>
         </View>
-      );
-    }
+
+        {this.state.showLoadingComponent &&
+          <LoadingScreen
+            isLoading={this.props.isLoading}
+            onAnimationComplete={() =>
+              this.setState({ showLoadingComponent: false })}
+          />}
+      </View>
+    );
   }
 }
 
