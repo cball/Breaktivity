@@ -1,7 +1,7 @@
 import { UPDATE_SETTINGS } from './actions';
 
-const DEFAULT_WORKTIME_LENGTH = 2100; // 35 min
-const DEFAULT_BREAKTIME_LENGTH = 180; // 3 min
+const DEFAULT_WORKTIME_LENGTH = 10; // 35 min
+const DEFAULT_BREAKTIME_LENGTH = 10; // 3 min
 
 export const DEFAULT_SETTINGS = {
   workTimeLength: DEFAULT_WORKTIME_LENGTH,

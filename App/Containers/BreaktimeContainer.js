@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Image, Button } from 'react-native';
+import { View, Text, Image, Vibration } from 'react-native';
 import styles from './Styles/BreaktimeContainerStyle';
 import { Images } from '../Themes';
 import { connect } from 'react-redux';
@@ -8,6 +8,10 @@ import ProgressBar from '../Components/ProgressBar';
 import MovementTracker from '../Components/MovementTracker';
 import { resetTimer } from '../Redux/Modules/Timer/actions';
 import Icon from 'react-native-vector-icons/Entypo';
+import {
+  notifyWithVibration,
+  TWO_VIBRATIONS
+} from '../Utils/notify-with-vibration';
 
 const DeviceInfo = require('react-native-device-info');
 
@@ -24,7 +28,14 @@ class BreaktimeContainer extends Component {
   }
 
   componentDidMount() {
-    if (DeviceInfo.isEmulator()) {
+    const { isEmulator } = DeviceInfo;
+    const { vibrate } = this.props;
+
+    if (vibrate) {
+      notifyWithVibration();
+    }
+
+    if (isEmulator()) {
       this._fakeMovementProgress();
     }
   }
@@ -94,6 +105,12 @@ class BreaktimeContainer extends Component {
     navigate('Home');
   }
 
+  _breakTimeComplete() {
+    this.setState({ isBreaktimeOver: true });
+
+    notifyWithVibration(TWO_VIBRATIONS);
+  }
+
   _breakTimeComponents() {
     return (
       <View style={styles.container}>
@@ -109,7 +126,7 @@ class BreaktimeContainer extends Component {
             paused={this.state.trackMovement}
             subtitle="until work"
             onTimerUpdate={({ seconds }) => this.setState({ seconds })}
-            onTimerComplete={() => this.setState({ isBreaktimeOver: true })}
+            onTimerComplete={this._breakTimeComplete.bind(this)}
           />
         </View>
 
