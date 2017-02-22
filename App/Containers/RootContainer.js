@@ -12,12 +12,8 @@ class RootContainer extends Component {
     title: 'Breaktivity'
   };
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      showLoadingComponent: true
-    };
+  componentWillMount() {
+    this.setState({ showLoadingComponent: this.props.isLoading });
   }
 
   render() {
